@@ -13,7 +13,6 @@ agent=Agent(
      functions=[], 
      tool_choice=None, 
      parallel_tool_calls=True,
-     context_variables={}
 )
 '''
 
