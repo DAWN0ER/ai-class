@@ -2,9 +2,11 @@ from character import Student,Teacher
 from swarm import Swarm
 from openai import OpenAI
 
+api_key = open("./code/api_key.cfg").readline()
+
 client = Swarm(
     client= OpenAI(
-        api_key="sk-59a6606f67394158a868a39dc6d2fe3d",
+        api_key=api_key,
         base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
     )
 )

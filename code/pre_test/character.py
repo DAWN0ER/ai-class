@@ -34,7 +34,7 @@ class Character:
         if (len(self.memory) == 0):
             return
         cnt = 0
-        for msg in self.memory :
+        for msg in self.memory[::-1] :
             if (cnt > self.permanent):
                 break
             if (msg["role"] == "system"):
