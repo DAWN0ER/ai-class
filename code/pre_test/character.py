@@ -24,8 +24,8 @@ extra_prompt = '''你需要做到的额外要求如下：
 class Character:
 
     def __init__(self, anget:Agent, client:Swarm, forget_ratio:float, permanent:int):
-        self.__agent = anget
-        self.__client = client
+        self.agent = anget
+        self.client = client
         self.forget_ratio = forget_ratio
         self.permanent = permanent
         self.memory = []
