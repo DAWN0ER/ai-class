@@ -1,2 +1,5 @@
 **\_pycache__
 **\api_key.cfg
+# 运行时目录
+**\lab
+**\logs
