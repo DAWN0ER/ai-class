@@ -4,6 +4,8 @@ from pre_cfg import *
 from swarm import Agent
 import random
 import json
+import uuid
+import time
 
 extra_prompt = '''
 你需要做到的额外要求如下：
@@ -65,13 +67,15 @@ class Character:
 
     # 追加上下文，表现上等同于 remember
     def remember(self, msg):
+        logger.info(f"[{self.agent.name}][添加新上下文] new_msg:{msg}")
         memory = self.content_load()
         memory.append(msg)
         self.content_cover(content=memory)
 
     # 基础对话交互功能
     def talk(self, content:str) -> str:
-        logger.info(f"[{self.agent.name}][记忆新内容] new_content:{content}")
+        talk_id = str(uuid.uuid1())[:23]
+        logger.info(f"[{self.agent.name}][对话][{talk_id}] 对话交互开始")
         self.remember({"role":"user","content":content})
         memory = self.content_load()
         try:
@@ -80,11 +84,11 @@ class Character:
                 messages=memory
             )
             answer = rsp.messages[-1]["content"]
-            logger.info(f"[{self.agent.name}][对话]\nQuestion:\n{content}\nAnswer:\n{answer}")
+            logger.info(f"[{self.agent.name}][对话][{talk_id}] 对话交互结果\nQuestion:\n{content}\nAnswer:\n{answer}")
             self.remember({"role":"assistant","content":answer})
             return answer
         except Exception as e:
-            print(f"Character:{self.__agent.name}, 交流出现异常:{e}!")
+            logger.error(f"Character:{self.__agent.name}, 交流出现异常:{e}!")
             return "抱歉出错了，我无法回答这个问题。"
 
 # 学生

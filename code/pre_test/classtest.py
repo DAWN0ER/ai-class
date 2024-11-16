@@ -1,30 +1,11 @@
+from pre_cfg import *
 from character import Student,Teacher
-from swarm import Swarm
-from openai import OpenAI
 
-api_key = open("./code/api_key.cfg").readline()
+t = Teacher("张老师",0.1,10)
 
-client = Swarm(
-    client= OpenAI(
-        api_key=api_key,
-        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-    )
-)
+s1 = Student("张三",0.1,10)
+s2 = Student("李四",0.1,10)
 
-t = Teacher("张老师",client,0.1,10)
-
-s1 = Student("张三",client,0.1,10)
-s2 = Student("李四",client,0.1,10)
-
-def tm():
-    print(f"Teacher 的 memory:{t.memory}")
-    print(f"张三 的 memory:{s1.memory}")
-    print(f"李四 的 memory:{s2.memory}")
-
-print("===== 实验开始 =====")
-tm()
-ans = t.talk("[管理员][Dawn]你们班有哪些学生，他们是怎么介绍自己的。")
-# ans = s1.talk("[管理员][Dawn]介绍一下你自己。")
-print(f"Answer:\n{ans}")
-print("=====对话结束=====")
-tm()
+perfix = "[管理员][Dawn]"
+ans = t.talk("[管理员][Dawn]今天的课堂问题是“你对AI智能体的发展有什么看法”，你要收集学生的回答，并作出评价，然后将全部内容整理好交给我")
+logger.info(f"[Answer]:{ans}")
