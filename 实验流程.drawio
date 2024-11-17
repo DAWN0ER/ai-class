@@ -1,0 +1,108 @@
+<mxfile host="Electron" modified="2024-11-17T09:18:44.336Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.18 Chrome/120.0.6099.199 Electron/28.1.2 Safari/537.36" etag="SsaJL2Cd9_dwAFJB20_H" version="22.1.18" type="device">
+  <diagram name="第 1 页" id="iH95evtD5dtVo_yYeKKy">
+    <mxGraphModel dx="1104" dy="797" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-11" value="" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;endArrow=classic;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" edge="1" parent="1" source="dyWS5yzhuGQDWEe8rG2y-2" target="dyWS5yzhuGQDWEe8rG2y-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-2" value="预加载配置" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="195" y="295" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-9" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=20;fontColor=default;targetPerimeterSpacing=3;sourcePerimeterSpacing=3;strokeWidth=2;jumpStyle=arc;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="dyWS5yzhuGQDWEe8rG2y-3" target="dyWS5yzhuGQDWEe8rG2y-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-3" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_2;whiteSpace=wrap;rounded=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="230" y="150" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-4" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;rounded=1;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="380" y="215" width="50" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-6" value="加载分词器，Client 等基础组件" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="440" y="205" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-7" value="加载班级仿真配置" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="440" y="295" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-8" value="加载教材" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="440" y="385" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-23" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;endArrow=classic;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" edge="1" parent="1" source="dyWS5yzhuGQDWEe8rG2y-10" target="dyWS5yzhuGQDWEe8rG2y-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-10" value="开始实验" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="195" y="455" width="150" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-33" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;endArrow=classic;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" edge="1" parent="1" source="dyWS5yzhuGQDWEe8rG2y-13" target="dyWS5yzhuGQDWEe8rG2y-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-13" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#CC6600;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="523" y="575" width="104" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-15" value="教材" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.document2;whiteSpace=wrap;size=0.25;rounded=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="395" y="540" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-22" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;endArrow=classic;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" edge="1" parent="1" source="dyWS5yzhuGQDWEe8rG2y-20" target="dyWS5yzhuGQDWEe8rG2y-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-26" value="" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;endArrow=classic;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" edge="1" parent="1" source="dyWS5yzhuGQDWEe8rG2y-20" target="dyWS5yzhuGQDWEe8rG2y-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-20" value="根据教学大纲&lt;br&gt;（包括要求和课时）&lt;br&gt;生成教学计划" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="175" y="570" width="190" height="114" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-25" value="上课 LOOP" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="175" y="840" width="190" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-27" value="教材" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.document2;whiteSpace=wrap;size=0.25;rounded=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="650" y="430" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-28" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;rounded=1;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="395" y="748" width="50" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-41" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;endArrow=classic;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" edge="1" parent="1" source="dyWS5yzhuGQDWEe8rG2y-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="950" y="748.5" as="targetPoint" />
+            <mxPoint x="817" y="748" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-34" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;endArrow=classic;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" edge="1" parent="1" source="dyWS5yzhuGQDWEe8rG2y-31" target="dyWS5yzhuGQDWEe8rG2y-42">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="707" y="748" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-31" value="根据教学计划&lt;br&gt;上第 N 节课" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="460" y="710" width="190" height="77" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-32" value="生成教学计划&lt;br&gt;加入上下文" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="730" y="592" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-35" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#000000;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="710" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-36" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#000000;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="970" y="710" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-37" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#000000;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="890" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-38" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#000000;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="800" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-39" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#000000;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="970" y="800" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-40" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#000000;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="970" y="890" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-42" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#CC6600;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="730" y="696" width="104" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-44" value="老师和学生交流&lt;br&gt;包括问答，布置作业和批改" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" vertex="1" parent="1">
+          <mxGeometry x="697" y="810" width="170" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

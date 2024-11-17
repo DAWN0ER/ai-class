@@ -44,6 +44,10 @@ class Character:
 
     # 随机遗忘上下文
     def forget(self):
+        # 过滤参数
+        if(self.forget_ratio <= 0 or self.permanent <= 0):
+            return
+        
         logger.info(f"[{self.agent.name}] 触发遗忘。")
         memory = self.content_load()
         if (len(memory) == 0):
@@ -112,14 +116,10 @@ class Student(Character):
         # 学生加入花名册
         roster[name]=self
 
-    def talk(self, content:str) -> str:
-        super().forget()
-        return super().talk(content=content)
-    
 # 老师
 class Teacher(Character):
 
-    def __init__(self, name:str, forget_ratio:float, permanent:int):
+    def __init__(self, name:str):
         new_agent = Agent(
             name=name,
             model=my_model,
@@ -132,10 +132,10 @@ class Teacher(Character):
                 + extra_prompt,
             functions = [talk2,aware_roster],
         )
-        super().__init__(agent=new_agent,forget_ratio=forget_ratio,permanent=permanent)
+        super().__init__(agent=new_agent,forget_ratio=0,permanent=0)
         # 老师加入 list
         teacher_list.append(self)
-    
+
 # functions[]
 
 # 和其他角色交流的能力
