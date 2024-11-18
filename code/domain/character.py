@@ -1,10 +1,8 @@
 # 初始化配置
-from pre_cfg import *
+from domain.pre_cfg import *
 
 from swarm import Agent
-import random
-import json
-import uuid
+import random,json,uuid
 
 extra_prompt = '''
 你需要做到的额外要求如下：
@@ -18,6 +16,13 @@ extra_prompt = '''
 roster = dict()
 # 老师列表，单成员
 teacher_list = []
+# 分词器
+logger.info("[分词器] loading...")
+tokenizer = thulac.thulac(
+    seg_only = False,
+    filt = False
+)
+logger.info("[分词器] completed...")
 
 # 基类
 class Character:
@@ -26,20 +31,20 @@ class Character:
         self.agent = agent
         self.forget_ratio = forget_ratio
         self.permanent = permanent
-        self.content_id = agent.name + '_m.log'
+        self.content_id = agent.name + '_m.json'
         logger.info(f"[{self.agent.name}][角色初始化] name:{agent.name}, forget_ratio:{forget_ratio}, permanent:{permanent}\n[Agent_instructions]:\n{agent.instructions}")
     
     # 加载上下文
     def content_load(self) -> list:
         try:
-            with open(content_dir + self.content_id, 'r') as file:
+            with open(content_dir + self.content_id, 'r',encoding='utf-8') as file:
                 return json.load(file)
         except FileNotFoundError:
             return []
 
     # 覆盖上下文
     def content_cover(self, content):
-        with open(content_dir + self.content_id, 'w') as file:
+        with open(content_dir + self.content_id, 'w',encoding='utf-8') as file:
             json.dump(content, file, indent=4, ensure_ascii=False)
             logger.debug(f"[{self.agent.name}][上下文记忆覆写] current_content = {content}")
 
@@ -136,6 +141,10 @@ class Teacher(Character):
         super().__init__(agent=new_agent,forget_ratio=0,permanent=0)
         # 老师加入 list
         teacher_list.append(self)
+    
+    def add_textbook(self,id:str):
+        self.remember({'role': 'system', 'content': f'fileid://{id}'})
+        return
 
 # functions[]
 

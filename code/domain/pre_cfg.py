@@ -21,20 +21,13 @@ content_dir = f"./logs/{time_format}/content/"
 os.makedirs(content_dir, exist_ok=True)
 
 # AI client
-client = Swarm(
-    client= OpenAI(
+open_ai_client= OpenAI(
         api_key = open("./lab/api_key.cfg").readline(),
         base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1",
     )
+client = Swarm(
+    open_ai_client
 )
-
-# 分词器
-logger.info("[分词器] loading...")
-tokenizer = thulac.thulac(
-    seg_only = False,
-    filt = False
-)
-logger.info("[分词器] completed...")
 
 logger.info(
 f'''实验静态参数配置：
