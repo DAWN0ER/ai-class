@@ -1,23 +1,25 @@
 from swarm import Swarm
 from openai import OpenAI
-import thulac
-import datetime
 from loguru import logger
-import os
-import re
+import thulac,datetime,os,re,sys
 
 time_format = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-# 日志系统
+# 日志框架
 log_dir = f"./logs/{time_format}/"
-logger.add(log_dir+"app.log",level="INFO",format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}")
-logger.add(log_dir+"debug.log",level="DEBUG",format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}")
-logger.level = "INFO"
+logger.remove(0) # 删除默认日志处理器
+log_format="<g>{time:YYYY-MM-DD HH:mm:ss}</g> <lc>|</lc> <level>{level}</level> <lc>|</lc> {message}"
+logger.add(sys.stderr, level="INFO",format=log_format,colorize=True,)
+logger.add(log_dir+"debug.log",level="DEBUG",format=log_format)
+logger.add(log_dir+"app.log",level="INFO",format=log_format)
+
 # 文件静态内容
 my_model = "qwen-long"
 mask = "█"
+
 # 上下文持久化位置
 content_dir = f"./logs/{time_format}/content/"
 os.makedirs(content_dir, exist_ok=True)
+
 # AI client
 client = Swarm(
     client= OpenAI(
@@ -25,6 +27,7 @@ client = Swarm(
         base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1",
     )
 )
+
 # 分词器
 logger.info("[分词器] loading...")
 tokenizer = thulac.thulac(
@@ -43,7 +46,6 @@ client base url: {client.client.base_url}'''
 )
 
 # tools
-
 def get_id_name(content:str):
     pattern = r'^\[(.*?)\]\[(.*?)\]'
     match = re.match(pattern=pattern,string=content)

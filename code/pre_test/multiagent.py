@@ -1,5 +1,5 @@
-from pre_cfg import *
-from character import Student,Teacher
+from domain.pre_cfg import *
+from domain.character import Student,Teacher
 
 t = Teacher("王二牛")
 

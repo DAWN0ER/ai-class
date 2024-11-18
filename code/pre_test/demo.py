@@ -1,6 +1,5 @@
 from swarm import Swarm, Agent
 from openai import OpenAI
-import json
 
 api_key = open("./code/api_key.cfg").readline()
 

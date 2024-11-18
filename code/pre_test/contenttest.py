@@ -1,5 +1,5 @@
-from pre_cfg import *
-from character import Character
+from domain.pre_cfg import *
+from domain.character import Character
 from swarm import Agent
 
 text = """怪兽-雷克戈涅杰厄，身高200米。体重200000吨，复活于南太平洋海底的古代遗迹露赛德露耶。

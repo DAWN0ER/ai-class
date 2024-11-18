@@ -1,4 +1,4 @@
-from character import Student,Character
+from domain.character import Student,Character
 from swarm import Swarm,Agent
 from openai import OpenAI
 import sys
