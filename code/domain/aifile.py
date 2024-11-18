@@ -19,6 +19,7 @@ class Manager:
             cfg = json.load(fp=cfg_file)
         for file in cfg:
             if self.check_md5(file):
+                logger.info(f"[文件管理] 载入文件{file['path']}")
                 self.__sheet[file['path']] = file
         pass
     
