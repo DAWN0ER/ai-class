@@ -115,7 +115,7 @@ class Student(Character):
                 + "课程中，有疑问时可以向老师提问请教，寻求帮助，但不能花费太多时间，影响课堂进度。"
                 + "课后时间，你可以与同学交流学习，巩固知识。"
                 + '\n'
-                + "如果你需要主动发起和班级里其他的学生的交流，可以使用 talk2 函数。"
+                + "如果你需要和班级里其他的学生的交流，可以使用 talk2 函数。"
                 + "如果你需要拿到班级中的学生的花名册，可以使用 aware_roster 函数。"
                 + "如果你需要询问老师问题，可以使用 ask_teacher 函数。"
                 + extra_prompt,
@@ -139,9 +139,9 @@ class Teacher(Character):
                 + "你需要根据课时安排和教学材料设计课程计划和教学大纲，然后根据教学计划和教学大纲进行教学。"
                 + "根据学生的学习情况，你可以组织课堂讨论，进行课堂小测，以评估学生的学习成果。"
                 + '\n'
-                + "如果你需要主动发起和班级里的某个学生的交流，可以使用 talk2 函数。"
+                + "如果你需要和班级里的某个学生的交流，可以使用 talk2 函数。"
                 + "如果你需要知道班级中的所有学生的花名册，可以使用 aware_roster 函数。" 
-                + "如果你需要对全班同学进行教学，传授知识，安排测试等老师对全班同学的交流互动时，可以使用 broadcast 函数。"
+                + "如果你需要对全班同学进行教学，传授知识，安排测试，可以使用 broadcast 函数。"
                 + extra_prompt,
             functions = [talk2,aware_roster,broadcast],
         )
@@ -158,23 +158,35 @@ class Teacher(Character):
 # 和其他学生交流的能力
 def talk2(name:str, content:str) -> str:
     """
-    用于和班级里的其他学生交流。
+    用于主动发起和班级里的其他学生交流。
 
     参数:
-    name(str): 想要交谈的人名字
+    name(str): 想要交谈的人名字。
     content(str): 想要交谈的内容，强制要求开头携带“[身份][姓名]”形式的前缀，表明身份和姓名。
 
     返回值:
-    str: 对方的回答
+    str: 对方的回答。
     """
 
     crct = roster[name]
     if(crct == None):
-        logger.error(f"[Function][ask_teacher]所在的班级没有老师！期望交流内容\n{content}")
-        return '[ERROR]名字出错了，没有找到这个人。'
+        logger.error(f"[Function][talk2]所在的班级没有这个人！期望交流内容\n{content}")
+        return '名字出错了，没有找到这个人。'
+    # 对调用方 assistant 的 content 添加记忆
     id,orignal = get_id_name(content=content)
     logger.debug(f"[Function][talk2] 函数被调用，调用发起方[{id}][{orignal}]，被调用方[{name}]")
-    return crct.talk(content)
+    if id == '学生':
+        roster[orignal].remember({'role':'assistant','content':content})
+    elif id == '老师':
+        teacher_list[0].remember({'role':'assistant','content':content})
+    # 直接交流（对方自己会持久化记忆）
+    ans = crct.talk(content)
+    # 对调用方 assistant 的 content 添加记忆（对面的回答相当于 user）
+    if id == '学生':
+        roster[orignal].remember({'role':'user','content':ans})
+    elif id == '老师':
+        teacher_list[0].remember({'role':'user','content':ans})
+    return ans
 
 # 感知班级环境的能力：获取学生花名册
 def aware_roster() -> list:
@@ -201,10 +213,18 @@ def ask_teacher(content:str) -> str:
 
     if(teacher_list == []):
         logger.error(f"[Function][ask_teacher]所在的班级没有老师！期望交流内容\n{content}")
-        return "[ERROR]你所在的班级没有老师。"
+        return "你所在的班级没有老师。"
+    # 对调用方 assistant 的 content 添加记忆
     id,orignal = get_id_name(content=content)
-    logger.debug(f"[Function][talk2] 函数被调用，调用方[{id}][{orignal}]。")
-    return teacher_list[0].talk(content)
+    logger.debug(f"[Function][ask_teacher] 函数被调用，调用方[{id}][{orignal}]。")
+    if id == '学生':
+        roster[orignal].remember({'role':'assistant','content':content})
+    # 调用 talk 和对方交流（对方自己会持久化记忆）
+    ans = teacher_list[0].talk(content)
+    # 对调用方 assistant 的 content 添加记忆（对面的回答相当于 user）
+    if id == '学生':
+        roster[orignal].remember({'role':'user','content':ans})
+    return ans
 
 def broadcast(content:str) ->dict:
     """
@@ -218,7 +238,12 @@ def broadcast(content:str) ->dict:
     """
     feedback = dict()
     logger.debug(f"[Function][teaching] 函数被调用:\n{content}")
+    id,_ = get_id_name(content=content)
+    if id == '老师':
+        teacher_list[0].remember({'role':'assistant','content':content})
     for k,v in roster.items():
         ans = v.talk(content)
+        if id == '老师':
+            teacher_list[0].remember({'role':'user','content':ans})
         feedback[k] = ans
     return feedback
