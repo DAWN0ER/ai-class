@@ -9,7 +9,7 @@ extra_prompt = '''
 强制要求：在交流的开头携带“[身份][姓名]”形式的前缀，表明身份和姓名，其他和你交流的角色也会带有相同的前缀。
 要求：面对问题尽量言简意赅，避免不必要的反问和商讨，只有确实对问题又明显疑问和不明确信息的时候可以进行反问。
 建议：和其他人交流时，如果对方的回答有反问，尽量回答将交流进行下去。
-提示：在对话中会出现“█”这个字符，表示这一部分内容为未知的或已经损坏的信息。
+提示：如果在对话中出现“█”这个字符，表示这一部分内容为未知的或已经损坏的信息。
 '''
 
 # 学生花名册 name:Agent
@@ -111,8 +111,11 @@ class Student(Character):
             # TODO
             instructions = 
                 f"你是一名学生，名字是{name}。"
+                + "接下来的一段时间里，你需要学习特定的课程，你的目标是学习课程内容，通过考试，并在学期结束期末测试时获得好成绩。"
+                + "课程中，有疑问时可以向老师提问请教，寻求帮助，但不能花费太多时间，影响课堂进度。"
+                + "课后时间，你可以与同学交流学习，巩固知识。"
                 + '\n'
-                + "如果你需要和班级里的其他学生交流时，可以使用 talk2 函数。"
+                + "如果你需要主动发起和班级里其他的学生的交流，可以使用 talk2 函数。"
                 + "如果你需要拿到班级中的学生的花名册，可以使用 aware_roster 函数。"
                 + "如果你需要询问老师问题，可以使用 ask_teacher 函数。"
                 + extra_prompt,
@@ -132,11 +135,15 @@ class Teacher(Character):
             # TODO
             instructions = 
                 f"你是一名老师，名字是{name}。"
+                + "你的工作是负责按照教学安排和要求进行授课，确保你的学生理解和掌握课程内容。"
+                + "你需要根据课时安排和教学材料设计课程计划和教学大纲，然后根据教学计划和教学大纲进行教学。"
+                + "根据学生的学习情况，你可以组织课堂讨论，进行课堂小测，以评估学生的学习成果。"
                 + '\n'
-                + "如果你需要和班级里的其他学生交流时，可以使用 talk2 函数。"
-                + "如果你需要拿到班级中的学生的花名册，可以使用 aware_roster 函数。" 
+                + "如果你需要主动发起和班级里的某个学生的交流，可以使用 talk2 函数。"
+                + "如果你需要知道班级中的所有学生的花名册，可以使用 aware_roster 函数。" 
+                + "如果你需要对全班同学进行教学，传授知识，安排测试等老师对全班同学的交流互动时，可以使用 broadcast 函数。"
                 + extra_prompt,
-            functions = [talk2,aware_roster],
+            functions = [talk2,aware_roster,broadcast],
         )
         super().__init__(agent=new_agent,forget_ratio=0,permanent=0)
         # 老师加入 list
@@ -148,7 +155,7 @@ class Teacher(Character):
 
 # functions[]
 
-# 和其他角色交流的能力
+# 和其他学生交流的能力
 def talk2(name:str, content:str) -> str:
     """
     用于和班级里的其他学生交流。
@@ -180,13 +187,13 @@ def aware_roster() -> list:
 
     return list(roster.keys())
 
-# 让学生和老师交流的方法
+# 学生和老师交流的方法
 def ask_teacher(content:str) -> str:
     """
     用于和老师交流。
     
     参数: 
-    content(str): 你想要交流对话的内容，强制要求开头携带“[身份][姓名]”形式的前缀，表明身份和姓名。
+    content(str): 你想要交流对话的内容。强制要求开头携带“[身份][姓名]”形式的前缀，表明身份和姓名。
     
     返回值: 
     str: 对方的回应。
@@ -198,3 +205,20 @@ def ask_teacher(content:str) -> str:
     id,orignal = get_id_name(content=content)
     logger.debug(f"[Function][talk2] 函数被调用，调用方[{id}][{orignal}]。")
     return teacher_list[0].talk(content)
+
+def broadcast(content:str) ->dict:
+    """
+    用于老师同时对全班同学进行交流的函数，交流的内容会同时传达给所有学生，并获取学生的反馈。
+
+    参数:
+    content(str)：老师这次交流内容。强制要求开头携带“[身份][姓名]”形式的前缀，表明身份和姓名。
+
+    返回值:
+    dict: 所有学生对次交流的回答或反馈，key 是学生名字，value 是学生的回答或反馈。
+    """
+    feedback = dict()
+    logger.debug(f"[Function][teaching] 函数被调用:\n{content}")
+    for k,v in roster.items():
+        ans = v.talk(content)
+        feedback[k] = ans
+    return feedback
