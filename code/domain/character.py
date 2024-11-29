@@ -2,14 +2,14 @@
 from domain.pre_cfg import *
 
 from swarm import Agent
-import random,json,uuid
+import random,json,uuid,thulac
 
 extra_prompt = '''
-你需要做到的额外要求如下：
-强制要求：在交流的开头携带“[身份][姓名]”形式的前缀，表明身份和姓名，其他和你交流的角色也会带有相同的前缀。
-要求：面对问题尽量言简意赅，避免不必要的反问和商讨，只有确实对问题又明显疑问和不明确信息的时候可以进行反问。
-建议：和其他人交流时，如果对方的回答有反问，尽量回答将交流进行下去。
-提示：如果在对话中出现“█”这个字符，表示这一部分内容为未知的或已经损坏的信息。
+你还需遵守以下规则：
+**强制要求**：在交流的开头携带“[身份][姓名]”形式的前缀（例如"[学生][张三]")，表明身份和姓名，其他和你交流的角色也会带有相同的前缀。
+**建议**：面对问题尽量言简意赅，避免不必要的反问或讨论，只有确实对问题又明显疑问和不明确信息的时候可以进行反问。
+**建议**：和其他人交流时，若对方的回复中包含反问句式，尽量直接作答以保持对话流畅。
+**注意**：如果在对话中出现“█”这个字符，表示这一部分内容为未知的或已经损坏的信息。
 '''
 
 # 学生花名册 name:Agent
@@ -22,7 +22,7 @@ tokenizer = thulac.thulac(
     seg_only = False,
     filt = False
 )
-logger.info("[分词器] completed...")
+logger.info("[分词器] completed...")     
 
 # 基类
 class Character:
@@ -110,14 +110,17 @@ class Student(Character):
             model=my_model,
             # TODO
             instructions = 
-                f"你是一名学生，名字是{name}。"
-                + "接下来的一段时间里，你需要学习特定的课程，你的目标是学习课程内容，通过考试，并在学期结束期末测试时获得好成绩。"
-                + "课程中，有疑问时可以向老师提问请教，寻求帮助，但不能花费太多时间，影响课堂进度。"
-                + "课后时间，你可以与同学交流学习，巩固知识。"
+                f"你的身份是一名学生，名字是{name}。"
+                + "你的任务事在接下来的一段时间里，你需要完成对特定的课程的学习。"
+                + "具体目标如下："
+                + "**主要目标**：在接下来的一段时间内学习特定课程的内容，顺利通过考试，并在学期结束时的期末测试中取得优异的成绩。"
+                + "**建议**：课程中，有疑问时可以向老师提问请教，寻求帮助，但禁止频繁提问，避免占用太多课堂时间。"
+                + "**建议**：课后时间，你可以与同学交流学习，巩固知识。"
                 + '\n'
-                + "如果你需要和班级里其他的学生的交流，可以使用 talk2 函数。"
-                + "如果你需要拿到班级中的学生的花名册，可以使用 aware_roster 函数。"
-                + "如果你需要询问老师问题，可以使用 ask_teacher 函数。"
+                + "在执行上述任务时，你可以利用以下功能："
+                + "1. 如果需要与班级中的某个学生单独交流，请使用 `talk2` 函数。"
+                + "2. 若要查看班级所有学生的名单，请使用 `aware_roster` 函数。" 
+                + "3. 如果需要询问老师问题，或与老师进行一对一交流，请使用 `ask_teacher` 函数。"
                 + extra_prompt,
             functions = [talk2,aware_roster,ask_teacher]
         )
@@ -134,14 +137,17 @@ class Teacher(Character):
             model=my_model,
             # TODO
             instructions = 
-                f"你是一名老师，名字是{name}。"
+                f"你的身份是一名老师，名字是{name}。"
                 + "你的工作是负责按照教学安排和要求进行授课，确保你的学生理解和掌握课程内容。"
-                + "你需要根据课时安排和教学材料设计课程计划和教学大纲，然后根据教学计划和教学大纲进行教学。"
-                + "根据学生的学习情况，你可以组织课堂讨论，进行课堂小测，以评估学生的学习成果。"
+                + "具体任务如下："
+                + "- **要求**：根据课时安排和教学材料设计课程计划和教学大纲，然后根据教学计划和教学大纲进行教学。"
+                + "- **要求**：进行教学任务时，如果涉及到教材相关的内容，要求你自己根据教材的内容，将教材中的知识提取总结后，再教授给同学们。"
+                + "- **建议**：根据学生的学习情况，你可以组织课堂讨论，进行课堂小测，以评估学生的学习成果。"
                 + '\n'
-                + "如果你需要和班级里的某个学生的交流，可以使用 talk2 函数。"
-                + "如果你需要知道班级中的所有学生的花名册，可以使用 aware_roster 函数。" 
-                + "如果你需要对全班同学进行教学，传授知识，安排测试，可以使用 broadcast 函数。"
+                + "在执行上述任务时，你可以利用以下功能："
+                + "1. 如果需要与班级中的某个学生单独交流，请使用 `talk2` 函数。"
+                + "2. 若要查看班级所有学生的名单，请使用 `aware_roster` 函数。" 
+                + "3. 对全班同学进行知识传授，组织课堂讨论或安排测试时，请使用 `broadcast` 函数。"
                 + extra_prompt,
             functions = [talk2,aware_roster,broadcast],
         )
@@ -191,7 +197,7 @@ def talk2(name:str, content:str) -> str:
 # 感知班级环境的能力：获取学生花名册
 def aware_roster() -> list:
     """
-    用于拿到班级中的学生的花名册。
+    用于拿到班级所有学生的名单。
     
     返回值:
     list: 班级所有学生姓名的列表
@@ -226,6 +232,7 @@ def ask_teacher(content:str) -> str:
         roster[orignal].remember({'role':'user','content':ans})
     return ans
 
+# 对学生广播
 def broadcast(content:str) ->dict:
     """
     用于老师同时对全班同学进行交流的函数，交流的内容会同时传达给所有学生，并获取学生的反馈。
@@ -237,7 +244,7 @@ def broadcast(content:str) ->dict:
     dict: 所有学生对次交流的回答或反馈，key 是学生名字，value 是学生的回答或反馈。
     """
     feedback = dict()
-    logger.debug(f"[Function][teaching] 函数被调用:\n{content}")
+    logger.debug(f"[Function][broadcast] 函数被调用:\n{content}")
     id,_ = get_id_name(content=content)
     if id == '老师':
         teacher_list[0].remember({'role':'assistant','content':content})
@@ -247,3 +254,21 @@ def broadcast(content:str) ->dict:
             teacher_list[0].remember({'role':'user','content':ans})
         feedback[k] = ans
     return feedback
+
+# tool
+# 让所有学生进行遗忘
+def all_forget():
+    logger.debug(f"[Tool_Function][all_forget] 函数被调用")
+    for name,student in roster.items():
+        student.forget()
+        logger.debug(f"[Tool_Function][all_forget] {name}完成一轮次遗忘")
+    logger.debug(f"[Tool_Function][all_forget] 所有学生完成一轮次遗忘")
+
+# 让特定学生进行遗忘
+def let_forget(name):
+    logger.debug(f"[Tool_Function][let_forget] 函数被调用")
+    if roster[name]:
+        roster[name].forget()
+        logger.debug(f"[Tool_Function][let_forget] {name}完成一轮次遗忘")
+    else:
+        logger.warning(f"[Tool_Function][let_forget] 没有找到{name}")

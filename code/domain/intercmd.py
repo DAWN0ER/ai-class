@@ -1,5 +1,6 @@
 import cmd
-from domain.character import talk2,broadcast,aware_roster,ask_teacher
+from domain.pre_cfg import logger
+from domain.character import talk2,broadcast,aware_roster,ask_teacher,all_forget,let_forget
 
 class InterCmd(cmd.Cmd):
 
@@ -7,20 +8,23 @@ class InterCmd(cmd.Cmd):
 
     def do_quit(self, arg):
         """Exit the command loop."""
+        logger.info('[quit]交互结束')
         print(">>>交互结束<<<")
         return True 
 
     def do_student(self, arg):
+        """talk to Student [name] [content]"""
+        logger.info(f'[studnet]:{arg}')
         name, content = map(str, arg.split())
         print(f"name={name}, content={content}")
         ans = talk2(name=name,content=self.prompt+content)
         print(f">>>Result<<<\n{ans}")
-    
 
     def do_roster(self, arg):
         print(f">>>花名册<<<{aware_roster()}")
 
     def do_broadcast(self,arg):
+        logger.info(f'[broadcast]:{arg}')
         content = self.prompt+arg
         feedback = broadcast(content=content)
         print(f">>>>>大家的回应<<<<<")
@@ -28,6 +32,15 @@ class InterCmd(cmd.Cmd):
             print(f"姓名:{k}\n{v}")
 
     def do_teacher(self,arg):
+        logger.info(f'[teacher]:{arg}')
         content = self.prompt+arg
         ans = ask_teacher(content=content)
         print(f">>>Result<<<\n{ans}")
+
+    def do_forget(self,arg):
+        logger.info(f'[forget]{arg}学生开始模拟遗忘')
+        if arg == 'ALL':
+            all_forget()
+        else:
+            let_forget(name=arg)
+        print(">>>遗忘完成<<<")
