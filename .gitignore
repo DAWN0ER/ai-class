@@ -5,3 +5,4 @@ lab
 logs
 *.bkp
 web/templates/*
+vue
