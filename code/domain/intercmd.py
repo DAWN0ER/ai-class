@@ -8,6 +8,7 @@ from domain.character import (
     all_forget,
     let_forget,
 )
+import domain.labtools as lab
 
 
 class InterCmd(cmd.Cmd):
@@ -17,6 +18,8 @@ class InterCmd(cmd.Cmd):
     def do_quit(self, arg):
         """Exit the command loop."""
         logger.info("[quit]交互结束")
+        # 生成 replay 剧本
+        lab.create_json_script()
         print(">>>交互结束<<<")
         return True
 

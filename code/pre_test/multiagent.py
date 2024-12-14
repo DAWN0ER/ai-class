@@ -1,5 +1,6 @@
 from domain.pre_cfg import *
 from domain.character import Student,Teacher
+import domain.labtools as lab
 
 t = Teacher("王二牛")
 
@@ -33,4 +34,5 @@ qus = '''你去执行如下工作：
 然后李四同学汇报结果。
 '''
 ans = t.talk(f"[校长][杨校长]{qus}")
+lab.create_json_script()
 logger.info(f"[Answer]:{ans}")

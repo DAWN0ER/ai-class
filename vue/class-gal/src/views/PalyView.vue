@@ -5,8 +5,9 @@
                 :leave-active-class="'animate__animated animate__fadeOut'">
                 <Conversation v-if="scene === 'conversation'" :left-one="conversationData.talkerL"
                     :right-one="conversationData.talkerR" />
-                <Broadcast v-else-if="scene === 'broadcast'" :teacher-name="broadcastData.teacherName"
-                    :teacher-msg="broadcastData.teacherMsg" :teacher-img="broadcastData.teacherImg"
+                <Broadcast v-else-if="scene === 'broadcast'" :speakerName="broadcastData.speakerName"
+                    :speakerMsg="broadcastData.speakerMsg" :speakerImg="broadcastData.speakerImg"
+                    :speaker-id="broadcastData.speakerId"
                     :student-msg-list="broadcastData.studentList" />
                 <div v-else></div>
             </Transition>
@@ -50,9 +51,10 @@ const conversationData = reactive({
     talkerR: {} as Talker,
 })
 const broadcastData = reactive({
-    teacherName: '',
-    teacherImg: '',
-    teacherMsg: '',
+    speakerName: '',
+    speakerImg: '',
+    speakerMsg: '',
+    speakerId:'',
     studentList: [],
 })
 
@@ -68,9 +70,10 @@ async function fetchData(scriptV: string, orderV: number) {
             conversationData.talkerL = data.talkerL as Talker;
             conversationData.talkerR = data.talkerR as Talker;
         } else if (data.scene === "broadcast") {
-            broadcastData.teacherImg = data.teacher.img
-            broadcastData.teacherName = data.teacher.name
-            broadcastData.teacherMsg = data.teacher.msg
+            broadcastData.speakerImg = data.speaker.img
+            broadcastData.speakerName = data.speaker.name
+            broadcastData.speakerMsg = data.speaker.msg
+            broadcastData.speakerId = data.speaker.id
             broadcastData.studentList = data.students
         }
         scriptStore.sceneOrder = data.order
@@ -128,7 +131,7 @@ const reset = () => {
     max-height: 85%;
     height: 85%;
     width: 100%;
-    background-image: url('classroom.jpg');
+    background-image: url('classroom.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

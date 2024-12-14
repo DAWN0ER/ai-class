@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-11-19T12:56:14.491Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.18 Chrome/120.0.6099.199 Electron/28.1.2 Safari/537.36" etag="4CJfVD18WTCMc83pkoJH" version="22.1.18" type="device">
+<mxfile host="Electron" modified="2024-12-13T13:05:28.463Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.18 Chrome/120.0.6099.199 Electron/28.1.2 Safari/537.36" etag="1RMnMq6envEOh2JTMGU3" version="22.1.18" type="device">
   <diagram name="第 1 页" id="iH95evtD5dtVo_yYeKKy">
-    <mxGraphModel dx="1802" dy="917" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1562" dy="917" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -13,7 +13,7 @@
         <mxCell id="dyWS5yzhuGQDWEe8rG2y-9" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=20;fontColor=default;targetPerimeterSpacing=3;sourcePerimeterSpacing=3;strokeWidth=2;jumpStyle=arc;edgeStyle=orthogonalEdgeStyle;" parent="1" source="dyWS5yzhuGQDWEe8rG2y-3" target="dyWS5yzhuGQDWEe8rG2y-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="dyWS5yzhuGQDWEe8rG2y-3" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_2;whiteSpace=wrap;rounded=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" parent="1" vertex="1">
+        <mxCell id="dyWS5yzhuGQDWEe8rG2y-3" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_2;whiteSpace=wrap;rounded=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="230" y="150" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="dyWS5yzhuGQDWEe8rG2y-4" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;rounded=1;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" parent="1" vertex="1">
@@ -48,6 +48,13 @@
         </mxCell>
         <mxCell id="dyWS5yzhuGQDWEe8rG2y-26" value="" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;endArrow=classic;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" parent="1" source="dyWS5yzhuGQDWEe8rG2y-20" target="dyWS5yzhuGQDWEe8rG2y-25" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HARITLIb8_sZvlUiL1yY-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=20;strokeWidth=2;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" edge="1" parent="1" source="dyWS5yzhuGQDWEe8rG2y-20" target="HARITLIb8_sZvlUiL1yY-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="630" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="dyWS5yzhuGQDWEe8rG2y-20" value="根据教学大纲&lt;br&gt;（包括要求和课时）&lt;br&gt;生成教学计划" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" parent="1" vertex="1">
           <mxGeometry x="175" y="570" width="190" height="114" as="geometry" />
@@ -119,13 +126,13 @@
           <mxGeometry x="630" y="972.88" width="50" height="70" as="geometry" />
         </mxCell>
         <mxCell id="6iIc9aid8laGkIni6SoQ-8" value="小组交流" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" parent="1" vertex="1">
-          <mxGeometry x="840" y="987" width="160" height="40" as="geometry" />
+          <mxGeometry x="820" y="987" width="160" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="6iIc9aid8laGkIni6SoQ-9" value="和老师交流" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" parent="1" vertex="1">
-          <mxGeometry x="670" y="987" width="160" height="40" as="geometry" />
+        <mxCell id="6iIc9aid8laGkIni6SoQ-9" value="案例分析" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" parent="1" vertex="1">
+          <mxGeometry x="670" y="987" width="140" height="40" as="geometry" />
         </mxCell>
         <mxCell id="6iIc9aid8laGkIni6SoQ-10" value="课堂检测" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" parent="1" vertex="1">
-          <mxGeometry x="1009" y="987.0000000000001" width="160" height="40" as="geometry" />
+          <mxGeometry x="994" y="987.0000000000001" width="160" height="40" as="geometry" />
         </mxCell>
         <mxCell id="6iIc9aid8laGkIni6SoQ-11" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#CC6600;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" parent="1" vertex="1">
           <mxGeometry x="488" y="860" width="104" height="104" as="geometry" />
@@ -191,13 +198,20 @@
           <mxGeometry x="740" y="1375" width="140" height="100" as="geometry" />
         </mxCell>
         <mxCell id="6iIc9aid8laGkIni6SoQ-43" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;jumpStyle=arc;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;endArrow=classic;sourcePerimeterSpacing=3;targetPerimeterSpacing=3;" parent="1" source="6iIc9aid8laGkIni6SoQ-40" target="6iIc9aid8laGkIni6SoQ-42" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1006" y="1308" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="6iIc9aid8laGkIni6SoQ-40" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fillColor=none;strokeColor=#CC6600;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.augmented_ai;rounded=1;strokeWidth=2;fontFamily=Helvetica;" parent="1" vertex="1">
           <mxGeometry x="840" y="1256" width="104" height="104" as="geometry" />
         </mxCell>
         <mxCell id="6iIc9aid8laGkIni6SoQ-42" value="给出期末成绩单" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=20;fontColor=default;fillColor=default;" parent="1" vertex="1">
-          <mxGeometry x="994" y="1261" width="190" height="92" as="geometry" />
+          <mxGeometry x="910.5" y="1510" width="190" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="HARITLIb8_sZvlUiL1yY-1" value="也可以定制教学计划" style="whiteSpace=wrap;html=1;fontSize=20;rounded=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="30" y="740" width="210" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

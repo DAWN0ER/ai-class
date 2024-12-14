@@ -1,33 +1,41 @@
-from flask import Flask,request, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-import os,json,time
+import os, json
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app)
 
-@app.route('/api/hello')
+
+@app.route("/api/hello")
 def hello():
-    res = {"name":'myname','age':123,'obj':{'id':13421,'idx':12}}
+    res = {"name": "myname", "age": 123, "obj": {"id": 13421, "idx": 12}}
     return res
 
-@app.route('/api/list')
+
+@app.route("/api/list")
 def get_list():
-    res = os.listdir('../logs/save-20241116-20241130')
+    res = os.listdir("./cache")
+    res = [f[0:15] for f in res]
     return res
 
-@app.route('/api/get', methods=['GET'])
+
+@app.route("/api/get", methods=["GET"])
 def get_scene():
-    script = request.args.get('script', default='', type=str)
-    order = request.args.get('order', default=1, type=int)
-    if script == '':
-        return jsonify({'error': 'Missing script parameter'}), 400
+    script = request.args.get("script", default="", type=str)
+    order = request.args.get("order", default=1, type=int)
+    if script == "":
+        return jsonify({"error": "Missing script parameter"}), 400
+
+    script_path = f"./cache/{script}-script.json"
+    if not os.path.exists(script_path):
+        return jsonify({"error": "No such script"}, 400)
     
-    # TODO mock data
-    with open('mock.json', 'r', encoding='utf-8') as file:
+    with open(script_path, "r") as file:
         data = json.load(file)
-    order = min(order,len(data))
-    rsp = data[order-1]
+    order = min(order, len(data))
+    rsp = data[order - 1]
     return jsonify(rsp)
 
-if __name__ == '__main__':
-    app.run(debug=True,port=12344)
+
+if __name__ == "__main__":
+    app.run(debug=True, port=12344)

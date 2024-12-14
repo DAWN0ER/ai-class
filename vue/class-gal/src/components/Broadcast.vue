@@ -1,9 +1,9 @@
 <template>
     <div class="wrapper">
-        <Character :id="'老师'" :name="teacherName" :img="teacherImg" />
+        <Character :id="speakerId" :name="speakerName" :img="speakerImg" />
         <div class="chat">
             <div class="teacher-chat">
-                <Box v-if="teacherMsg !== ''" :msg="teacherMsg" :type="'L'" />
+                <Box v-if="speakerMsg !== ''" :msg="speakerMsg" :type="'L'" />
             </div>
             <div class="rolling-chat">
                 <div v-for="std in studentMsgList" class="a-chat">
@@ -32,10 +32,11 @@ export interface RollingLine {
     img: string,
 }
 
-const props = defineProps<{
-    teacherName:string,
-    teacherMsg:string,
-    teacherImg:string,
+defineProps<{
+    speakerName:string,
+    speakerMsg:string,
+    speakerImg:string,
+    speakerId:string,
     studentMsgList:RollingLine[],
 }>();
 

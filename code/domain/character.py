@@ -1,14 +1,15 @@
 # 初始化配置
 from domain.pre_cfg import *
+import domain.labtools as lab
 
 from swarm import Agent
 import random, json, uuid, thulac
 
 extra_prompt = """
 你还需遵守以下规则：
-**强制要求**：在交流的开头携带“[身份][姓名]”形式的前缀（例如"[学生][张三]")，表明身份和姓名，其他和你交流的角色也会带有相同的前缀。
+**强制要求**：格式化要求！对话，交流，提问，总结的内容的开头必须携带“[身份][姓名]”形式的前缀（例如"[学生][张三]")，表明身份和姓名，其他和你交流的角色也会带有相同的前缀。
 **强制要求**：必须根据自己对话上下文得内容进行回答，不允许虚构和假设在会话中没发生过的经历。
-**强制要求**：不允许和不在班级名单内的学生交流。
+**强制要求**：只允许和在班级学生名单中的学生交流。
 **建议**：面对问题尽量言简意赅，避免不必要的反问或讨论，只有确实对问题又明显疑问和不明确信息的时候可以进行反问。
 **建议**：和其他人交流时，若对方的回复中包含反问句式，尽量直接作答以保持对话流畅。
 **注意**：如果在对话中出现“█”这个字符，表示这一部分内容为未知的或已经损坏的信息。
@@ -27,8 +28,11 @@ logger.info("[分词器] completed...")
 # 基类
 class Character:
 
-    def __init__(self, agent: Agent, forget_ratio: float, permanent: int):
+    def __init__(
+        self, agent: Agent, identity: str, forget_ratio: float, permanent: int
+    ):
         self.agent = agent
+        self.identity = identity
         self.forget_ratio = forget_ratio
         self.permanent = permanent
         self.content_id = agent.name + "_m.json"
@@ -100,6 +104,8 @@ class Character:
         try:
             rsp = client.run(agent=self.agent, messages=memory)
             answer = rsp.messages[-1]["content"]
+            # 这里加入强制 format 输出
+            answer = lab.format(id=self.identity, name=self.agent.name, content=answer)
             logger.info(
                 f"[{self.agent.name}][对话][{talk_id}] 对话交互结果\nAnswer:\n{answer}"
             )
@@ -130,13 +136,16 @@ class Student(Character):
             + "\n"
             + "在执行上述任务时，请你使用以下功能："
             + "1. 如果需要班级所有学生的名单，要求必须使用 `aware_roster` 函数。"
-            + "2. 如果需要与班级中的某个学生单独交流，请使用 `talk2` 函数。"
+            + "2. 如果需要发起和班级中的某个学生的单独交流，使用 `talk2` 函数。"
             + "3. 如果需要询问老师问题，或与老师进行一对一交流，请使用 `ask_teacher` 函数。"
             + extra_prompt,
             functions=[talk2, aware_roster, ask_teacher],
         )
         super().__init__(
-            agent=new_agent, forget_ratio=forget_ratio, permanent=permanent
+            agent=new_agent,
+            forget_ratio=forget_ratio,
+            permanent=permanent,
+            identity="学生",
         )
         # 学生加入花名册
         roster[name] = self
@@ -161,12 +170,12 @@ class Teacher(Character):
             + "\n"
             + "在执行上述任务时，请你使用以下功能："
             + "1. 如果需要班级里所有学生的名单，要求必须使用 `aware_roster` 函数。"
-            + "2. 如果需要与班级中的某个学生单独交流，请使用 `talk2` 函数。"
+            + "2. 如果需要发起和班级中的某个学生的单独交流，请使用 `talk2` 函数。"
             + "3. 完成教学任务的过程中，需要对全班同学传授知识，讲课，组织课堂讨论，安排测试时，要求使用 `broadcast` 函数。"
             + extra_prompt,
             functions=[talk2, aware_roster, broadcast],
         )
-        super().__init__(agent=new_agent, forget_ratio=0, permanent=0)
+        super().__init__(agent=new_agent, forget_ratio=0, permanent=0, identity="老师")
         # 老师加入 list
         teacher_list.append(self)
 
@@ -179,7 +188,7 @@ class Teacher(Character):
 # 和其他学生交流的能力
 def talk2(name: str, content: str) -> str:
     """
-    用于主动发起和班级里的其他学生交流。
+    用于主动发起和班级里的其他学生交流，只允许和在班级学生名单中的学生交流。
 
     参数:
     name(str): 想要交谈的学生的名字，只允许和班级内的学生交谈。
@@ -189,10 +198,11 @@ def talk2(name: str, content: str) -> str:
     str: 对方的回答。
     """
 
-    crct = roster[name]
-    if crct == None:
+    student_recv = roster[name]
+    if student_recv == None:
         logger.error(f"[Function][talk2]所在的班级没有这个人！期望交流内容\n{content}")
         return "名字出错了，没有找到这个人。"
+
     # 对调用方 assistant 的 content 添加记忆
     id, orignal = get_id_name(content=content)
     logger.debug(
@@ -202,13 +212,18 @@ def talk2(name: str, content: str) -> str:
         roster[orignal].remember({"role": "assistant", "content": content})
     elif id == "老师":
         teacher_list[0].remember({"role": "assistant", "content": content})
+
     # 直接交流（对方自己会持久化记忆）
-    ans = crct.talk(content)
+    lab.conversation(id="学生", to=name, msg=content)
+    ans = student_recv.talk(content)
+    lab.conversation(id=id, to=orignal, msg=ans)
+
     # 对调用方 assistant 的 content 添加记忆（对面的回答相当于 user）
     if id == "学生":
         roster[orignal].remember({"role": "user", "content": ans})
     elif id == "老师":
         teacher_list[0].remember({"role": "user", "content": ans})
+
     return ans
 
 
@@ -241,13 +256,18 @@ def ask_teacher(content: str) -> str:
             f"[Function][ask_teacher]所在的班级没有老师！期望交流内容\n{content}"
         )
         return "你所在的班级没有老师。"
+
     # 对调用方 assistant 的 content 添加记忆
     id, orignal = get_id_name(content=content)
     logger.debug(f"[Function][ask_teacher] 函数被调用，调用方[{id}][{orignal}]。")
     if id == "学生":
         roster[orignal].remember({"role": "assistant", "content": content})
+
     # 调用 talk 和对方交流（对方自己会持久化记忆）
+    lab.conversation(id="教师", to=teacher_list[0].agent.name, msg=content)
     ans = teacher_list[0].talk(content)
+    lab.conversation(id=id, to=orignal, msg=ans)
+
     # 对调用方 assistant 的 content 添加记忆（对面的回答相当于 user）
     if id == "学生":
         roster[orignal].remember({"role": "user", "content": ans})
@@ -267,14 +287,18 @@ def broadcast(content: str) -> dict:
     """
     feedback = dict()
     logger.debug(f"[Function][broadcast] 函数被调用:\n{content}")
-    id, _ = get_id_name(content=content)
+    id, origin = get_id_name(content=content)
     if id == "老师":
         teacher_list[0].remember({"role": "assistant", "content": content})
+
+    # 依次调用 talk 函数，达成广播
+    lab.broadcastQ(id=id, origin=origin, msg=content)
     for k, v in roster.items():
         ans = v.talk(content)
         if id == "老师":
             teacher_list[0].remember({"role": "user", "content": ans})
         feedback[k] = ans
+    lab.broadcastA(id=id, to=origin, msgs=list(feedback.values()))
     return feedback
 
 
