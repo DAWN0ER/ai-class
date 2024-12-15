@@ -27,7 +27,7 @@ const changeVal = (val: string) => {
 
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost:12344/api/list');
+        const response = await fetch('http://localhost/api/list');
         console.log(response)
         const data = await response.json();
         console.log(data)

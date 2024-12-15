@@ -64,7 +64,7 @@ async function fetchData(scriptV: string, orderV: number) {
         order: orderV.toString()
     }).toString();
     try {
-        const response = await fetch(`http://localhost:12344/api/get?${queryString}`);
+        const response = await fetch(`http://localhost/api/get?${queryString}`);
         const data = await response.json();
         if (data.scene === "conversation") {
             conversationData.talkerL = data.talkerL as Talker;
@@ -131,7 +131,7 @@ const reset = () => {
     max-height: 85%;
     height: 85%;
     width: 100%;
-    background-image: url('classroom.png');
+    background-image: url('/classroom.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

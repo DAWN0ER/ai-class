@@ -1,5 +1,5 @@
 from domain.pre_cfg import log_dir, logger, time_format
-import json,re,random,copy
+import json, re, random, copy
 
 # 原始剧本文件位置
 SCRIPT_TXT = log_dir + "script.txt"
@@ -19,6 +19,7 @@ sNames = []
 tImgs = ["teacher_" + str(i + 1) for i in range(4)]
 random.shuffle(tImgs)
 tNames = []
+
 
 def __append_line(
     type: str,
@@ -50,24 +51,28 @@ def conversation(id: str, to: str, msg: str):
     __append_line(type="conversation", info=info, msgs=[msg])
     return
 
+
 # 强制 format 的二代保险
-def format(id:str,name:str,content:str):
+def format(id: str, name: str, content: str):
     match = re.match(pattern=pattern, string=content)
     if match:
         return content
     return f"[{id}][{name}]{content}"
 
+
 # 剧本生成相关操作
+
 
 def __match_pattern(content: str):
     match = re.match(pattern=pattern, string=content)
     if match:
         id = match.group(1)
         name = match.group(2)
-        return id,name, content.removeprefix(f'[{id}][{name}]')
+        return id, name, content.removeprefix(f"[{id}][{name}]")
     else:
         logger.warning(f"[SCRIPT] 解析正则表达式失败：{content}")
         return "未知身份", "匿名", content
+
 
 def __get_img(name: str, id: str):
     names = sNames if id == "学生" else tNames
@@ -75,6 +80,7 @@ def __get_img(name: str, id: str):
     if name not in names:
         names.append(name)
     return imgs[names.index(name)]
+
 
 def __change_to_scene(data, scriptId):
     # 基本信息
@@ -121,10 +127,15 @@ def __change_to_scene(data, scriptId):
             for aMsg in data["msg"]:
                 sid, sname, message = __match_pattern(aMsg)
                 students.append(
-                    {"name": sname, "msg": message, "img": __get_img(name=sname, id=sid)}
+                    {
+                        "name": sname,
+                        "msg": message,
+                        "img": __get_img(name=sname, id=sid),
+                    }
                 )
             nextScene["students"] = students
     return nextScene
+
 
 def __is_match(nowData):
     if len(stack) < 1:
@@ -141,6 +152,7 @@ def __is_match(nowData):
         return nowData["speaker"]["name"] == sceneData["speaker"]["name"]
     return False
 
+
 # 默认是匹配的
 def merge_scene(oldScene, newScene, order):
     if newScene["scene"] == "conversation":
@@ -152,15 +164,24 @@ def merge_scene(oldScene, newScene, order):
         oldScene["students"] = newScene["students"]
         return oldScene
 
-def create_json_script():
+
+def create_json_script(scriptId=time_format):
     # 初始化参数
+    global sceneOrderNow
     stack.clear()
     sceneList.clear()
     sceneOrderNow *= 0
     sNames.clear()
     tNames.clear()
+    if scriptId == time_format:
+        original_script = SCRIPT_TXT
+        output_script = SCRIPT_JSON
+    else:
+        original_script = f"./logs/{scriptId}/script.txt"
+        output_script = f"./web/cache/{scriptId}-script.json"
+
     # 读取原始剧本
-    with open(SCRIPT_TXT, "r") as file:
+    with open(original_script, "r") as file:
         while True:
             line = file.readline().rstrip("\n")
             if line == "":
@@ -179,9 +200,11 @@ def create_json_script():
                 useOrder = sceneOrderNow
                 sceneList.pop()
             oldOne = stack.pop()
-            mergeScene = merge_scene(oldScene=oldOne, newScene=nextScene, order=useOrder)
+            mergeScene = merge_scene(
+                oldScene=oldOne, newScene=nextScene, order=useOrder
+            )
             sceneOrderNow = mergeScene["order"]
             sceneList.append(copy.deepcopy(mergeScene))
     logger.debug(f"stack:{stack}")
-    with open(file=SCRIPT_JSON, mode="w") as fp:
+    with open(file=output_script, mode="w") as fp:
         json.dump(obj=sceneList, fp=fp, ensure_ascii=False, indent=4)

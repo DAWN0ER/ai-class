@@ -5,6 +5,8 @@ import os, json
 app = Flask(__name__)
 CORS(app)
 
+SCRIPT_CHCHE = []
+SCRIPT_CACHED_ID = ""
 
 @app.route("/api/hello")
 def hello():
@@ -21,6 +23,7 @@ def get_list():
 
 @app.route("/api/get", methods=["GET"])
 def get_scene():
+    global SCRIPT_CACHED_ID, SCRIPT_CHCHE
     script = request.args.get("script", default="", type=str)
     order = request.args.get("order", default=1, type=int)
     if script == "":
@@ -30,10 +33,13 @@ def get_scene():
     if not os.path.exists(script_path):
         return jsonify({"error": "No such script"}, 400)
     
-    with open(script_path, "r") as file:
-        data = json.load(file)
-    order = min(order, len(data))
-    rsp = data[order - 1]
+    if SCRIPT_CACHED_ID != script:
+        with open(script_path, "r") as file:
+            SCRIPT_CHCHE = json.load(file)
+            SCRIPT_CACHED_ID = script
+
+    order = min(order, len(SCRIPT_CHCHE))
+    rsp = SCRIPT_CHCHE[order - 1]
     return jsonify(rsp)
 
 
