@@ -114,7 +114,7 @@ class Character:
         except Exception as e:
             logger.error(f"[Character]对[{self.agent.name}]执行 talk 方法出现异常!")
             logger.exception(e)
-            return "抱歉，这个问题无法回答。"
+            return f"[{self.identity}][{self.agent.name}]抱歉，这个问题我无法回答。"
 
 
 # 学生
