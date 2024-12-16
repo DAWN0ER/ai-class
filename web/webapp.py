@@ -8,6 +8,7 @@ CORS(app)
 SCRIPT_CHCHE = []
 SCRIPT_CACHED_ID = ""
 
+
 @app.route("/api/hello")
 def hello():
     res = {"name": "myname", "age": 123, "obj": {"id": 13421, "idx": 12}}
@@ -29,11 +30,12 @@ def get_scene():
     if script == "":
         return jsonify({"error": "Missing script parameter"}), 400
 
-    script_path = f"./cache/{script}-script.json"
-    if not os.path.exists(script_path):
-        return jsonify({"error": "No such script"}, 400)
-    
+    # 增加 cache
     if SCRIPT_CACHED_ID != script:
+        script_path = f"./cache/{script}-script.json"
+        if not os.path.exists(script_path):
+            return jsonify({"error": "No such script"}, 400)
+
         with open(script_path, "r") as file:
             SCRIPT_CHCHE = json.load(file)
             SCRIPT_CACHED_ID = script
