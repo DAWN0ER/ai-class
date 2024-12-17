@@ -1,23 +1,35 @@
 <template>
     <div class="wrapper">
-        <Character :id="speakerId" :name="speakerName" :img="speakerImg" />
+        <Transition :mode="'out-in'" :duration="{ enter: 1000, leave: 500 }"
+            :enter-active-class="'animate__animated animate__backInLeft'"
+            :leave-active-class="'animate__animated animate__backOutLeft'">
+            <Character :key="speakerName" :id="speakerId" :name="speakerName" :img="speakerImg" />
+        </Transition>
         <div class="chat">
             <div class="teacher-chat">
-                <Box v-if="speakerMsg !== ''" :msg="speakerMsg" :type="'L'" />
+                <Transition :mode="'out-in'" :duration="{ enter: 1000, leave: 500 }"
+                    :enter-active-class="'animate__animated animate__bounceInLeft'"
+                    :leave-active-class="'animate__animated animate__backOutLeft'">
+                    <Box :key="speakerMsg" v-if="speakerMsg !== ''" :msg="speakerMsg" :type="'L'" />
+                </Transition>
             </div>
-            <div class="rolling-chat">
-                <div v-for="std in studentMsgList" class="a-chat">
-                    <div class="chat-wrapper">
-                        <Box :msg="std.msg" :type="'R'" />
-                    </div>
-                    <div class="desc-card">
-                        <img class="avater" :src="`/cha/${std.img}.png`">
-                        <div class="name-card">
-                            {{ std.name }}
+            <Transition :mode="'out-in'" :duration="{ enter: 800, leave: 800 }"
+                :enter-active-class="'animate__animated animate__bounceIn'"
+                :leave-active-class="'animate__animated animate__bounceOut'">
+                <div class="rolling-chat" :key="speakerId+speakerMsg">
+                    <div v-for="std in studentMsgList" class="a-chat">
+                        <div class="chat-wrapper">
+                            <Box :msg="std.msg" :type="'R'" />
+                        </div>
+                        <div class="desc-card">
+                            <img class="avater" :src="`/cha/${std.img}.png`">
+                            <div class="name-card">
+                                {{ std.name }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Transition>
         </div>
     </div>
 </template>
@@ -33,11 +45,11 @@ export interface RollingLine {
 }
 
 defineProps<{
-    speakerName:string,
-    speakerMsg:string,
-    speakerImg:string,
-    speakerId:string,
-    studentMsgList:RollingLine[],
+    speakerName: string,
+    speakerMsg: string,
+    speakerImg: string,
+    speakerId: string,
+    studentMsgList: RollingLine[],
 }>();
 
 </script>
@@ -65,6 +77,7 @@ defineProps<{
     padding: 20px;
     padding-bottom: 0px;
     overflow-y: auto;
+    overflow-x: hidden;
     border-bottom: 3px solid #3C5B6Fb6;
     border-radius: 1px;
 }
@@ -76,6 +89,7 @@ defineProps<{
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .a-chat {

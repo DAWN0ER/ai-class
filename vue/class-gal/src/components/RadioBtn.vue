@@ -14,7 +14,7 @@ const props = defineProps<{
     options: string[]
 }>()
 
-const {options} = toRefs(props);
+const { options } = toRefs(props);
 
 const emit = defineEmits(['update'])
 
@@ -43,12 +43,13 @@ watch(test, (newVal) => {
     height: 50px;
     width: 200px;
     cursor: pointer;
-    background-color: rgb(135, 168, 235,0.5);
+    background-color: rgb(135, 168, 235, 0.5);
     text-align: center;
     align-content: center;
     border-radius: 15px;
     transition: transform 0.2s ease;
-    backdrop-filter: blur(10px); /* 毛玻璃效果 */
+    backdrop-filter: blur(10px);
+    /* 毛玻璃效果 */
 }
 
 .btn:hover {

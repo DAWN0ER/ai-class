@@ -7,22 +7,18 @@
                     :right-one="conversationData.talkerR" />
                 <Broadcast v-else-if="scene === 'broadcast'" :speakerName="broadcastData.speakerName"
                     :speakerMsg="broadcastData.speakerMsg" :speakerImg="broadcastData.speakerImg"
-                    :speaker-id="broadcastData.speakerId"
-                    :student-msg-list="broadcastData.studentList" />
+                    :speaker-id="broadcastData.speakerId" :student-msg-list="broadcastData.studentList" />
                 <div v-else></div>
             </Transition>
         </div>
         <div class="console-wrapper">
-            <div v-show="timerId !== 0" class="desc">Auto Playing...</div>
             <Transition :mode="'out-in'" :enter-active-class="'animate__animated animate__bounceIn'"
                 :leave-active-class="'animate__animated animate__bounceOut'">
-                <div :key="scene" class="desc">{{ scene }}</div>
-            </Transition>
-            <Transition :mode="'out-in'" :enter-active-class="'animate__animated animate__bounceIn'"
-                :leave-active-class="'animate__animated animate__bounceOut'">
-                <div :key="order" class="desc">SCENE-{{ order }}</div>
+                <div v-show="timerId !== 0" class="desc">Auto Playing...</div>
             </Transition>
             <div class="desc">{{ scriptStore.scriptId }}</div>
+            <div @click="jump" :class="['desc', 'click-desc']">SCENE<input @click.stop v-model="order"
+                    class="console-input" /></div>
             <IconSelector @click="last" :icon="'last'" />
             <IconSelector @click="play" :icon="'play'" />
             <IconSelector @click="next" :icon="'next'" />
@@ -54,7 +50,7 @@ const broadcastData = reactive({
     speakerName: '',
     speakerImg: '',
     speakerMsg: '',
-    speakerId:'',
+    speakerId: '',
     studentList: [],
 })
 
@@ -85,7 +81,7 @@ async function fetchData(scriptV: string, orderV: number) {
 }
 
 onMounted(() => {
-    if(scriptStore.scriptId !== 'none'){
+    if (scriptStore.scriptId !== 'none') {
         fetchData(scriptStore.scriptId, scriptStore.sceneOrder)
     }
 })
@@ -101,6 +97,7 @@ const last = () => {
 }
 
 const play = () => {
+    fetchData(scriptStore.scriptId, scriptStore.sceneOrder + 1)
     timerId.value = setInterval(() => {
         const o1 = scriptStore.sceneOrder
         fetchData(scriptStore.scriptId, scriptStore.sceneOrder + 1)
@@ -110,7 +107,7 @@ const play = () => {
                     timerId.value = 0;
                 }
             })
-    }, 3000) // 3s 一次
+    }, 5000) // 5s 一次
 }
 
 const stop = () => {
@@ -121,7 +118,11 @@ const stop = () => {
 }
 
 const reset = () => {
-    fetchData(scriptStore.scriptId,1)
+    fetchData(scriptStore.scriptId, 1)
+}
+
+const jump =() =>{
+    fetchData(scriptStore.scriptId, order.value)
 }
 
 </script>
@@ -150,9 +151,11 @@ const reset = () => {
 }
 
 .desc {
+    display: flex;
     height: 32px;
     text-align: center;
     align-content: center;
+    align-items: center;
     margin-right: 15px;
     border-radius: 10px;
     background-color: cadetblue;
@@ -163,9 +166,33 @@ const reset = () => {
     font-weight: bold;
 }
 
+.click-desc:hover {
+    color: #FFCCE1;
+    cursor: pointer;
+}
+
 .contain {
     height: 100%;
     width: 100%;
     max-height: 90vh;
+}
+
+.console-input {
+    outline-style: none;
+    border: 3px solid #CBD2A4;
+    border-radius: 3px;
+    height: 20px;
+    width: 32px;
+    text-align: center;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    margin-left: 5px;
+    font-weight: bolder;
+    background-color: whitesmoke;
+    color: #4B5945;
+}
+
+.console-input:focus {
+    border-color: #DA8359;
 }
 </style>

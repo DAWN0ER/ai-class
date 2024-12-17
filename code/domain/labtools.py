@@ -29,7 +29,7 @@ def __append_line(
     newline = json.dumps({"type": type, "info": info, "msg": msgs}, ensure_ascii=False)
     logger.debug(f"[Script] Append:{newline}")
     try:
-        with open(SCRIPT_TXT, "a") as file:
+        with open(SCRIPT_TXT, "a", encoding='utf-8') as file:
             file.write(newline + "\n")
     except Exception as e:
         logger.error(f"[Script] Error with line: {newline}")
@@ -181,7 +181,7 @@ def create_json_script(scriptId=time_format):
         output_script = f"./web/cache/{scriptId}-script.json"
 
     # 读取原始剧本
-    with open(original_script, "r") as file:
+    with open(original_script, "r", encoding='utf-8') as file:
         while True:
             line = file.readline().rstrip("\n")
             if line == "":
@@ -206,5 +206,5 @@ def create_json_script(scriptId=time_format):
             sceneOrderNow = mergeScene["order"]
             sceneList.append(copy.deepcopy(mergeScene))
     logger.debug(f"stack:{stack}")
-    with open(file=output_script, mode="w") as fp:
+    with open(file=output_script, mode="w", encoding='utf-8') as fp:
         json.dump(obj=sceneList, fp=fp, ensure_ascii=False, indent=4)

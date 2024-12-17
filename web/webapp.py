@@ -36,7 +36,7 @@ def get_scene():
         if not os.path.exists(script_path):
             return jsonify({"error": "No such script"}, 400)
 
-        with open(script_path, "r") as file:
+        with open(script_path, "r",encoding='utf-8') as file:
             SCRIPT_CHCHE = json.load(file)
             SCRIPT_CACHED_ID = script
 
