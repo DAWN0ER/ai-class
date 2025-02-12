@@ -20,7 +20,7 @@ logger.add(log_dir + "debug.log", level="DEBUG", format=log_format)
 logger.add(log_dir + "app.log", level="INFO", format=log_format)
 
 # 文件静态内容
-my_model = "qwen-long"
+my_model = "qwen-plus-latest"
 mask = "█"
 
 # 上下文持久化位置

@@ -120,14 +120,15 @@ class Character:
 # 学生
 class Student(Character):
 
-    def __init__(self, name: str, forget_ratio: float, permanent: int):
+    def __init__(
+        self, name: str, forget_ratio: float, permanent: int, extra_description=""
+    ):
         new_agent = Agent(
             name=name,
             model=my_model,
-            # TODO
-            instructions=f"你的身份是一名学生，名字是{name}。"
+            instructions=f"你的身份是一名学生，姓名是{name}。{extra_description}\n"
             + "你的任务事在接下来的一段时间里，你需要完成对特定的课程的学习。"
-            + "具体目标如下："
+            + "具体目标如下：\n"
             + "- **主要目标**：在接下来的一段时间内学习特定课程的内容，顺利通过考试，并在学期结束时的期末测试中取得优异的成绩。"
             + "- **重要**：在老师授课过程中应当做好知识总结，禁止在老师授课过程中频繁提问，扰乱课堂节奏。"
             + "- **建议**：课程中，如果有疑问可以先记录整理，课堂最后会安排专门的老师答疑时间。答疑时间内可以单独向老师提问请教，寻求帮助。"
@@ -136,8 +137,8 @@ class Student(Character):
             + "\n"
             + "在执行上述任务时，请你使用以下功能："
             + "1. 如果需要班级所有学生的名单，要求必须使用 `aware_roster` 函数。"
-            + "2. 如果需要发起和班级中的某个学生的单独交流，使用 `talk2` 函数。"
-            + "3. 如果需要询问老师问题，或与老师进行一对一交流，请使用 `ask_teacher` 函数。"
+            + "2. **强制要求**：如果需要发起和班级中的某个学生的单独交流，使用 `talk2` 函数。"
+            + "3. **强制要求**：如果需要询问老师问题，或与老师进行一对一交流，使用 `ask_teacher` 函数。"
             + extra_prompt,
             functions=[talk2, aware_roster, ask_teacher],
         )
@@ -159,7 +160,7 @@ class Teacher(Character):
             name=name,
             model=my_model,
             # TODO
-            instructions=f"你的身份是一名老师，名字是{name}。"
+            instructions=f"你的身份是一名老师，姓名是{name}。"
             + "你的工作是负责按照教学安排和要求进行授课，确保你的学生理解和掌握课程内容。"
             + "具体任务如下："
             + "- **主要目标**：根据课程大纲和教学任务计划，进行授课和完成教学任务"
@@ -170,8 +171,8 @@ class Teacher(Character):
             + "\n"
             + "在执行上述任务时，请你使用以下功能："
             + "1. 如果需要班级里所有学生的名单，要求必须使用 `aware_roster` 函数。"
-            + "2. 如果需要发起和班级中的某个学生的单独交流，请使用 `talk2` 函数。"
-            + "3. 完成教学任务的过程中，需要对全班同学传授知识，讲课，组织课堂讨论，安排测试时，要求使用 `broadcast` 函数。"
+            + "2. **强制要求**：如果需要发起和班级中的某个学生的单独交流，必须使用 `talk2` 函数。"
+            + "3. **强制要求**：完成教学任务的过程中，需要对全班同学传授知识，讲课，组织课堂讨论，安排测试时，要求使用 `broadcast` 函数。"
             + extra_prompt,
             functions=[talk2, aware_roster, broadcast],
         )

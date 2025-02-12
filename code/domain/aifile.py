@@ -38,6 +38,7 @@ class Manager:
             return FileInfo(**self.__sheet[path])
         return None
 
+    # 上传和更新文件都是这个函数
     def flush_file(self, path: str):
         if path in self.__sheet:
             file = self.get_file(path)
