@@ -12,7 +12,7 @@ extra_prompt = """
 **强制要求**：只允许和在班级学生名单中的学生交流。
 **建议**：面对问题尽量言简意赅，避免不必要的反问或讨论，只有确实对问题又明显疑问和不明确信息的时候可以进行反问。
 **建议**：和其他人交流时，若对方的回复中包含反问句式，尽量直接作答以保持对话流畅。
-**注意**：如果在对话中出现“█”这个字符，表示这一部分内容为未知的或已经损坏的信息。
+**强制要求**：如果在对话中出现“█”这个字符，表示这一部分内容为未知的或已经损坏的信息，需要忽略掉，并且绝对禁止输出“█”这个字符。
 """
 
 # 学生花名册 name:Agent
@@ -23,7 +23,9 @@ teacher_list = []
 logger.info("[分词器] loading...")
 tokenizer = thulac.thulac(seg_only=False, filt=False)
 logger.info("[分词器] completed...")
-
+# 分别用不同的模型，后续如果有必要会使用 deepseek
+student_model = "qwen-max"
+teacher_model = "qwen-long"
 
 # 基类
 class Character:
@@ -125,7 +127,7 @@ class Student(Character):
     ):
         new_agent = Agent(
             name=name,
-            model=my_model,
+            model=student_model,
             instructions=f"你的身份是一名学生，姓名是{name}。{extra_description}\n"
             + "你的任务事在接下来的一段时间里，你需要完成对特定的课程的学习。"
             + "具体目标如下：\n"
@@ -158,7 +160,7 @@ class Teacher(Character):
     def __init__(self, name: str):
         new_agent = Agent(
             name=name,
-            model=my_model,
+            model=teacher_model,
             # TODO
             instructions=f"你的身份是一名老师，姓名是{name}。"
             + "你的工作是负责按照教学安排和要求进行授课，确保你的学生理解和掌握课程内容。"

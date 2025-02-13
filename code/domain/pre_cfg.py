@@ -20,7 +20,6 @@ logger.add(log_dir + "debug.log", level="DEBUG", format=log_format)
 logger.add(log_dir + "app.log", level="INFO", format=log_format)
 
 # 文件静态内容
-my_model = "qwen-plus-latest"
 mask = "█"
 
 # 上下文持久化位置
@@ -51,7 +50,6 @@ def get_id_name(content: str):
 logger.info(
     f"""实验静态参数配置：
 实验时间戳: {time_format}
-LLM模型: {my_model}
 mask标记: {mask}
 上下文持久化位置: {content_dir}
 client base url: {client.client.base_url}"""

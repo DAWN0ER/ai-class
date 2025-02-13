@@ -20,8 +20,8 @@ class Manager:
         with open(cfg_path, "r", encoding="utf-8") as cfg_file:
             cfg = json.load(fp=cfg_file)
         for file in cfg:
-            if self.check_md5(file):
-                logger.info(f"[文件管理] 载入文件{file['path']}")
+            if self.check_md5(FileInfo(**file)):
+                logger.debug(f"[文件管理] 载入文件{file['path']}")
                 self.__sheet[file["path"]] = file
         pass
 
@@ -41,8 +41,8 @@ class Manager:
     # 上传和更新文件都是这个函数
     def flush_file(self, path: str):
         if path in self.__sheet:
-            file = self.get_file(path)
-            if self.check_md5(file):
+            fileinfo = self.get_file(path)
+            if self.check_md5(fileinfo):
                 logger.warning(f"MD5校验认定文件{path}未更改，不更新。")
                 return
             self.del_file(path=path)
@@ -51,7 +51,7 @@ class Manager:
         file["path"] = path
         file["md5"] = self.file_md5(path)
         file_obj = open_ai_client.files.create(file=Path(path), purpose="file-extract")
-        logger.info(f"文件api请求结果:{file_obj.model_dump_json()}")
+        logger.debug(f"文件api请求结果:{file_obj.model_dump_json()}")
         file["id"] = file_obj.id
         logger.info(f"添加新文件:{file}")
         self.__sheet[path] = file
@@ -61,16 +61,16 @@ class Manager:
         if path in self.__sheet:
             file = self.get_file(path)
             try:
-                file_del = open_ai_client.files.delete(file_id=file["id"])
-                logger.info(f"删除旧文件:{file},rsp={file_del}")
+                file_del = open_ai_client.files.delete(file_id=file.id)
+                logger.debug(f"删除旧文件:{file},rsp={file_del}")
             except Exception as e:
                 logger.warning(f"删除失败:{file}", e)
             del self.__sheet[path]
             self.__update_cofig()
 
-    def check_md5(self, file: dict):
-        md5_record = file["md5"]
-        file_path = file["path"]
+    def check_md5(self, file: FileInfo):
+        md5_record = file.md5
+        file_path = file.path
         try:
             md5_check = self.file_md5(file_path)
             return md5_record == md5_check

@@ -14,8 +14,8 @@ from domain.aifile import Manager
 teacher = Teacher("叶知秋")
 Student("楚云舒", 0.1, 50)
 Student("苏逸尘", 0.1, 50)
-# Student("林诗韵", 0.1, 50)
-# Student("叶清风", 0.1, 50)
+Student("林诗韵", 0.1, 50)
+# Student("万清风", 0.1, 50)
 # Student("沈婉兮", 0.1, 50)
 # Student("陆子衿", 0.1, 50)
 # Student("萧逸轩", 0.1, 50)
@@ -25,22 +25,22 @@ Student("苏逸尘", 0.1, 50)
 # Student("苏沐阳", 0.1, 50)
 # Student("楚辞韵", 0.1, 50)
 # Student("林逸轩", 0.1, 50)
-# Student("叶婉清", 0.1, 50)
+# Student("周婉清", 0.1, 50)
 # Student("陆锦书", 0.1, 50)
 # Student("柳诗涵", 0.1, 50)
 
 manager = Manager(cfg_path="./lab/file_cofig.json")
 TEXT_BOOK = "./lab/通信电路与系统教学资料.md"
 
-if manager.get_file(path=TEXT_BOOK) is None:
-    manager.flush_file(path=TEXT_BOOK)
+# 方便更新
+manager.flush_file(path=TEXT_BOOK)
 
 teacher.add_textbook(manager.get_file(TEXT_BOOK).id)
 
 prompt = "[校长][杨校长]"
 
 content = """现在进行教学任务安排：这个学期你是《通信电路与系统》这门课程的授课老师。
-这门课程一共24个课时，教学资料为“通信电路与系统教学资料”，下面是这门课程的教学要求：
+这门课程一共24个课时，教学参考资料为“通信电路与系统教学资料”，下面是这门课程的教学要求：
 
 ## 授课目标：
 本课程使学生掌握通信系统的核心--无线通信射频系统的基础理论、射频电路设计与测试方法、射频系统和电路最新进展和未来方向，为学生今后开展通信电路与系统技术研究和产品开发打下坚实的基础。
@@ -100,10 +100,9 @@ content = """现在进行教学任务安排：这个学期你是《通信电路�
 ans = ask_teacher(prompt + content)
 print("===\n" + ans)
 
-# idxs = [i+1 for i in range(24)]
-idxs = [i + 1 for i in range(2)]
+classes = [i + 1 for i in range(2)]
 
-for idx in idxs:
+for idx in classes:
     logger.info(f"==第{idx}节课==")
 
     broadcast(
@@ -128,18 +127,18 @@ for idx in idxs:
         + "现在下课，同学们自由安排，可以和同学相互交流，也可以自己整理复习这堂课的学习内容。"
     )
 
-    broadcast(f"{prompt}整理汇总《中国近代文学赏析》的第{idx}节课的学习内容。")
+    broadcast(f"{prompt}整理汇总《通信电路与系统》的第{idx}节课的学习内容。")
 
     all_forget()
 
-# broadcast(
-#     prompt
-#     + "现在所有课程都已经结束，在这次的《中国近代文学赏析》课程中，你学到了什么，你觉得《故乡》是一部什么样的作品？做一个简单的学习汇报总结。"
-# )
+broadcast(
+    prompt
+    + "现在所有课程都已经结束，在这次的《通信电路与系统》课程中，做一个简单的学习汇报总结。"
+)
 
-# broadcast(
-#     prompt
-#     + "《中国近代文学赏析》课程已经结课，你觉得授课老师王建国老师的教学怎么样？你对王老师如何评价？你觉得他还有哪些地方可以提升？"
-# )
+broadcast(
+    prompt
+    + "《通信电路与系统》课程已经结课，你觉得授课老师叶知秋老师的教学怎么样？请从多个维度进行评价，你觉得他还有哪些地方可以提升？"
+)
 
 # lab.create_json_script()

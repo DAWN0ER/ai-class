@@ -35,6 +35,11 @@ from domain.character import Teacher
 files = Manager(cfg_path='./lab/file_cofig.json')
 ai = Teacher("周老师")
 
-file_id = files.list_file()[0].id
-ai.add_textbook(id=file_id)
-ai.talk("[校长][杨傲天]请告诉我这本小说讲了什么故事")
+# file_id = files.list_file()[0].id
+# ai.add_textbook(id=file_id)
+# ai.talk("[校长][杨傲天]请告诉我这本小说讲了什么故事")
+
+TEXT_BOOK = "./lab/通信电路与系统教学资料.md"
+
+ai.add_textbook(files.get_file(TEXT_BOOK).id)
+ai.talk("[校长][杨傲天]总结《通信电路与系统教学资料》")
