@@ -12,9 +12,9 @@ import domain.labtools as lab
 from domain.aifile import Manager
 
 teacher = Teacher("叶知秋")
-Student("楚云舒", 0.1, 50)
-Student("苏逸尘", 0.1, 50)
-Student("林诗韵", 0.1, 50)
+Student("楚云舒", 0.1, 50,extra_description="学习专注认真，课堂上全神贯注，课后还主动拓展知识。")
+Student("苏逸尘", 0.1, 20,extra_description="活力满满，是课堂交流的积极分子，和同学们打成一片。")
+Student("林诗韵", 0.1, 50,extra_description="性格腼腆内向，寡言少语，尊重师长，心思缜密，愿意思考。")
 # Student("万清风", 0.1, 50)
 # Student("沈婉兮", 0.1, 50)
 # Student("陆子衿", 0.1, 50)
@@ -103,7 +103,7 @@ print("===\n" + ans)
 classes = [i + 1 for i in range(2)]
 
 for idx in classes:
-    logger.info(f"==第{idx}节课==")
+    logger.info(f"==>第{idx}节课<==")
 
     broadcast(
         f"{prompt}上课通知：同学们，现在准备开始学习《通信电路与系统》的第{idx}节课，本堂课的任课老师是叶知秋，请同学们安静，停止交流，等待叶知秋老师上课。收到通知后请立刻回复“收到”。"
@@ -141,4 +141,4 @@ broadcast(
     + "《通信电路与系统》课程已经结课，你觉得授课老师叶知秋老师的教学怎么样？请从多个维度进行评价，你觉得他还有哪些地方可以提升？"
 )
 
-# lab.create_json_script()
+lab.create_json_script()
