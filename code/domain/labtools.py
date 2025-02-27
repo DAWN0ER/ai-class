@@ -35,17 +35,17 @@ def __append_line(
         logger.error(f"[Script] Error with line: {newline}")
         logger.exception(e)
 
-
+# 生成剧本专用，记录 broadcast 的发起
 def broadcastQ(id: str, origin: str, msg: str):
     info = {"id": id, "from": origin}
     __append_line(type="broadcast", info=info, msgs=[msg])
 
-
+# 生成剧本专用，记录 broadcast 的响应
 def broadcastA(id: str, to: str, msgs: list):
     info = {"id": id, "to": to}
     __append_line(type="broadcast", info=info, msgs=msgs)
 
-
+# 生成剧本专用，记录 caonversation
 def conversation(id: str, to: str, msg: str):
     info = {"id": id, "to": to}
     __append_line(type="conversation", info=info, msgs=[msg])
@@ -61,7 +61,6 @@ def format(id: str, name: str, content: str):
 
 
 # 剧本生成相关操作
-
 
 def __match_pattern(content: str):
     match = re.match(pattern=pattern, string=content)

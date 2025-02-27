@@ -8,26 +8,38 @@ from domain.character import (
     all_forget,
     logger,
 )
-import domain.labtools as lab
+from domain.labtools import create_json_script
 from domain.aifile import Manager
 
 teacher = Teacher("叶知秋")
-Student("楚云舒", 0.1, 50,extra_description="学习专注认真，课堂上全神贯注，课后还主动拓展知识。")
-Student("苏逸尘", 0.1, 20,extra_description="活力满满，是课堂交流的积极分子，和同学们打成一片。")
-Student("林诗韵", 0.1, 50,extra_description="性格腼腆内向，寡言少语，尊重师长，心思缜密，愿意思考。")
-# Student("万清风", 0.1, 50)
-# Student("沈婉兮", 0.1, 50)
-# Student("陆子衿", 0.1, 50)
-# Student("萧逸轩", 0.1, 50)
-# Student("柳如烟", 0.1, 50)
-# Student("方若曦", 0.1, 50)
-# Student("谢景行", 0.1, 50)
-# Student("苏沐阳", 0.1, 50)
-# Student("楚辞韵", 0.1, 50)
-# Student("林逸轩", 0.1, 50)
-# Student("周婉清", 0.1, 50)
-# Student("陆锦书", 0.1, 50)
-# Student("柳诗涵", 0.1, 50)
+Student(
+    "楚云舒",
+    extra_description="学习专注认真，课堂上全神贯注，课后还主动拓展知识。",
+)
+Student(
+    "苏逸尘",
+    forget_ratio=0.2,
+    extra_description="活力满满，是课堂交流的积极分子，和同学们打成一片。",
+)
+Student(
+    "林诗韵",
+    forget_ratio=0.05,
+    permanent=10,
+    extra_description="性格腼腆内向，寡言少语，尊重师长，心思缜密，愿意思考。",
+)
+# Student("万清风")
+# Student("沈婉兮")
+# Student("陆子衿")
+# Student("萧逸轩")
+# Student("柳如烟")
+# Student("方若夕")
+# Student("谢沐阳")
+# Student("苏沐阳")
+# Student("楚辞韵")
+# Student("林逸轩")
+# Student("周婉清")
+# Student("陆锦书")
+# Student("柳诗涵")
 
 manager = Manager(cfg_path="./lab/file_cofig.json")
 TEXT_BOOK = "./lab/通信电路与系统教学资料.md"
@@ -39,8 +51,9 @@ teacher.add_textbook(manager.get_file(TEXT_BOOK).id)
 
 prompt = "[校长][杨校长]"
 
+# 24 次课（一节课对应两个课时）
 content = """现在进行教学任务安排：这个学期你是《通信电路与系统》这门课程的授课老师。
-这门课程一共24个课时，教学参考资料为“通信电路与系统教学资料”，下面是这门课程的教学要求：
+这门课程一共安排24次课，教学参考资料为“通信电路与系统教学资料”，下面是这门课程的教学要求：
 
 ## 授课目标：
 本课程使学生掌握通信系统的核心--无线通信射频系统的基础理论、射频电路设计与测试方法、射频系统和电路最新进展和未来方向，为学生今后开展通信电路与系统技术研究和产品开发打下坚实的基础。
@@ -98,9 +111,8 @@ content = """现在进行教学任务安排：这个学期你是《通信电路�
 现在，基于课程的教学要求，独立给出结构清晰详细的课程安排和授课方案，完成你自己课程开始前的准备工作，不允许和学生交流。"""
 
 ans = ask_teacher(prompt + content)
-print("===\n" + ans)
 
-classes = [i + 1 for i in range(2)]
+classes = [i + 1 for i in range(24)]
 
 for idx in classes:
     logger.info(f"==>第{idx}节课<==")
@@ -119,7 +131,7 @@ for idx in classes:
 
     broadcast(
         prompt
-        + "现在是答疑时间，同学们如果有疑问可以向老师提问请教，问题尽量简单，禁止反复追问，禁止占用太多时间。"
+        + "现在是答疑时间，同学们如果有疑问可以向老师提问请教，问题尽量简单，减少反复追问，不要占用太多时间。"
     )
 
     broadcast(
@@ -141,4 +153,4 @@ broadcast(
     + "《通信电路与系统》课程已经结课，你觉得授课老师叶知秋老师的教学怎么样？请从多个维度进行评价，你觉得他还有哪些地方可以提升？"
 )
 
-lab.create_json_script()
+create_json_script()

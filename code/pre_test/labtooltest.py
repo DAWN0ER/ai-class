@@ -1,11 +1,14 @@
 from domain.character import (
-    Student,
-    broadcast,
+    Teacher,
+    ask_teacher
 )
-import domain.labtools as lab
+from domain.labtools import create_json_script
+from domain.aifile import Manager
 
-Student("林子涵", 0.1, 50)
-Student("徐欣怡", 0.1, 50)
+# manager = Manager(cfg_path="./lab/file_cofig.json")
+# TEXT_BOOK = "./lab/通信电路与系统教学资料.md"
 
-broadcast("[校长][徐清远]自我介绍一下。")
-lab.create_json_script()
+Teacher("王武")
+
+ask_teacher("[校长][徐清远]什么是麦克斯韦方程？")
+create_json_script()
