@@ -10,19 +10,34 @@
 <script setup lang='ts'>
 import 'github-markdown-css/github-markdown-dark.css'
 import { Marked } from 'marked';
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 import { ref, toRefs, watch } from 'vue';
 
 const props = defineProps<{
     msg: string,
     type: string,
 }>()
+
+const renderMd = (msg: string): string => {
+    const parsedMarkdown = marked.parse(msg) as string;
+    return renderFormulas(parsedMarkdown);
+};
+
+const renderFormulas = (htmlContent: string): string => {
+    return htmlContent.replace(/(\$\$?)([^$]+)(\$\$?)/g, (match, $1, formula, $3) => {
+        const isBlock = $1 === "$$"; // 判断是否为块级公式
+        const renderOptions = { throwOnError: false, displayMode: isBlock };
+        return katex.renderToString(formula.trim(), renderOptions);
+    });
+};
+
 const { msg, type } = toRefs(props)
-
 const marked = new Marked()
-const md = ref(marked.parse(props.msg) as string);
+const md = ref(renderMd(props.msg));
 
-watch(msg, (newV, oldV) => {
-    md.value = marked.parse(newV) as string
+watch(msg, (newV) => renderMd(newV), {
+    immediate: true
 })
 
 </script>
@@ -63,10 +78,6 @@ h5,
 h6 {
     margin-top: 2px !important;
     padding-bottom: 0 !important;
-}
-
-.chat-bubble-content * {
-    margin-bottom: 5px !important;
 }
 
 /* 靠右边的消息样式 */

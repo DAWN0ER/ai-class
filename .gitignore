@@ -6,3 +6,4 @@ logs
 *.bkp
 
 web/cache
+web/unused

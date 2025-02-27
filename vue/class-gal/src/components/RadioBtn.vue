@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, toRef, toRefs, watch } from 'vue';
+import { ref, toRefs, watch } from 'vue';
 
 
 const props = defineProps<{
