@@ -30,7 +30,7 @@ logger.info("[分词器] loading...")
 tokenizer = thulac.thulac(seg_only=False, filt=False)
 logger.info("[分词器] completed...")
 # 分别用不同的模型，后续如果有必要会使用 deepseek
-student_model = "qwen-max"
+student_model = "qwen-plus"
 teacher_model = "qwen-long"
 
 
